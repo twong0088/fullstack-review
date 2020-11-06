@@ -17,7 +17,7 @@ let addNew = (newInput)=> {
   const newRepo = new Repo({
     repoId: newInput.id,
     repoName: newInput.name,
-    repoUrl: newInput.owner.url
+    repoUrl: newInput.url
   });
 
   newRepo.save((err) => {
