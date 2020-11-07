@@ -29,12 +29,19 @@ class App extends React.Component {
       url: '/repos',
       contentType: 'application/json',
       data: JSON.stringify(term),
-      success: console.log('post success')
+      success: () => {
+        this.getRepos((data) => {
+          this.setState({
+            repos: data
+          })
+        })
+      },
     })
   }
 
+
   componentDidMount() {
-    this.getRepos((data) =>{
+    this.getRepos((data) => {
       this.setState({
         repos: data
       })

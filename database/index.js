@@ -54,7 +54,7 @@ let addNew = (newInput)=> {
 
 let getRepos = (callback) => {
   console.log('db getRepos is working');
-  var answer = Repo.find({}).limit(25).exec((err, result) => {
+  var answer = Repo.find({}).limit(25).sort({$natural:-1}).exec((err, result) => {
     callback(result);
   })
   // console.log('answer: ', answer.paths);
