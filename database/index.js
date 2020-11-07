@@ -1,7 +1,29 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher', {useMongoClient:true});
+// const MongoClient = require('mongodb').MongoClient;
+// const assert = require('assert');
+// // Connection URL
+// const url = 'mongodb://127.0.0.1:27017';
+// // Database Name
+// const dbName = 'myproject';
+// // Use connect method to connect to the server
+// MongoClient.connect(url, function(err, client) {
+//   assert.equal(null, err);
+//   console.log("Connected successfully to server");
+//   const db = client.db(dbName);
+// });
 
-let repoSchema = mongoose.Schema({
+//===================================================
+const mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://127.0.0.1/fetcher');
+
+const db = mongoose.connection;
+// console.log(db);
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('succesfully connected to mongodb')
+});
+
+let repoSchema = new mongoose.Schema({
   // TODO: your schema here!
   repoId: Number,
   repoName: String,
@@ -9,6 +31,7 @@ let repoSchema = mongoose.Schema({
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
+
 
 let addNew = (newInput)=> {
   // TODO: Your code here
@@ -19,7 +42,7 @@ let addNew = (newInput)=> {
     repoName: newInput.name,
     repoUrl: newInput.url
   });
-
+  console.log(newRepo);
   newRepo.save((err) => {
     if (err) {
       console.log(err);
@@ -28,6 +51,6 @@ let addNew = (newInput)=> {
     }
   })
 
-}
+ }
 
 module.exports.save = addNew;
