@@ -10,7 +10,16 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+    this.getRepos = this.getRepos.bind(this);
+  }
 
+  getRepos(callback) {
+    $.ajax({
+      type: 'GET',
+      url: '/repos',
+      contentType: 'application/json',
+      success: callback
+    })
   }
 
   search (term) {
@@ -21,6 +30,14 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify(term),
       success: console.log('post success')
+    })
+  }
+
+  componentDidMount() {
+    this.getRepos((data) =>{
+      this.setState({
+        repos: data
+      })
     })
   }
 

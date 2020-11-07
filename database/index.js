@@ -42,7 +42,7 @@ let addNew = (newInput)=> {
     repoName: newInput.name,
     repoUrl: newInput.url
   });
-  console.log(newRepo);
+
   newRepo.save((err) => {
     if (err) {
       console.log(err);
@@ -50,7 +50,15 @@ let addNew = (newInput)=> {
       console.log('success');
     }
   })
+}
 
- }
+let getRepos = (callback) => {
+  console.log('db getRepos is working');
+  var answer = Repo.find({}).limit(25).exec((err, result) => {
+    callback(result);
+  })
+  // console.log('answer: ', answer.paths);
+}
 
 module.exports.save = addNew;
+module.exports.getRepos = getRepos;

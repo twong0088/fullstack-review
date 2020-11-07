@@ -19,7 +19,8 @@ app.post('/repos', function (req, res) {
           name: repo.name,
           url: repo.html_url
         });
-        //DB.save(repo);
+
+
       })
       //console.log(response.data);
       res.sendStatus(201);
@@ -30,8 +31,11 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  console.log('app.get triggered');
 
-
+  DB.getRepos((result) => {
+    res.send(result);
+  })
 });
 
 let port = 1128;
